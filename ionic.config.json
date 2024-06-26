@@ -1,0 +1,7 @@
+{
+  "name": "piloto-facturas-standalone",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
