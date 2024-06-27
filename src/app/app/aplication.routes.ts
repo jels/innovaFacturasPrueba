@@ -6,22 +6,22 @@ export const APLICATION_ROUTES: Routes = [
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'qrscan',
+    path: 'app/qrscan',
     loadComponent: () =>
       import('./qrscan/qrscan.page').then((m) => m.QrscanPage),
   },
   {
-    path: 'ocrscan',
+    path: 'app/ocrscan',
     loadComponent: () =>
       import('./ocrscan/ocrscan.page').then((m) => m.OcrscanPage),
   },
   {
-    path: 'upload',
+    path: 'app/upload',
     loadComponent: () =>
       import('./upload/upload.page').then((m) => m.UploadPage),
   },
   {
-    path: 'info',
+    path: 'app/info',
     loadComponent: () => import('./info/info.page').then((m) => m.InfoPage),
   },
   {

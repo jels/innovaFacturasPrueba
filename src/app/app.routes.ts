@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: () =>
+  //     import('./dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
+  // },
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
-  },
-  {
-    path: 'app',
+    path: '',
     loadChildren: () =>
       import('./app/aplication.routes').then((m) => m.APLICATION_ROUTES),
   },
