@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center"> Innova Facturas </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button href="app/info" color="tertiary">
+        <!-- <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon> -->
+        <!-- <ion-icon name="information-outline" slot="end" size="large"></ion-icon> -->
+        <span class="material-symbols-outlined">
+          info
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding ion-text-center">
+  <div class="segment container">
+    <div class="segment-content">
+      <img src="assets/logos/Recurso8.png" style="padding-bottom: 20%;" alt="">
+      <!-- <img src="assets/innovaServiceLogo.jpeg" style="padding-bottom: 20%;" alt=""> -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-button href="app/ocrscan" class="submit" size="large" expand="block" style="margin-bottom: 10px;">
+            Escanear Facturas
+            <ion-icon slot="end" name="image-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button href="app/qrscan" class="submit" size="large" expand="block" style="margin-bottom: 10px;">
+            Escanear QR
+            <ion-icon slot="end" name="scan-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button href="app/upload" class="submit" size="large" expand="block" style="margin-bottom: 10px;">
+            Subir Archivos
+            <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <!-- <ion-button size="large" expand="block" href="ocrscan" style="margin-bottom: 20px;">Escanear Facturas</ion-button>
+    <ion-button size="large" expand="block" href="qrscan" style="margin-bottom: 20px;">Escanear QR</ion-button>
+    <ion-button size="large" expand="block" href="upload" style="margin-bottom: 20px;">Subir Archivos</ion-button> -->
+
+    </div>
+  </div>
+
+
+</ion-content>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Inicio</ion-title>
+  </ion-toolbar>
+</ion-footer>

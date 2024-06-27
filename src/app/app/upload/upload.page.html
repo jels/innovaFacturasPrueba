@@ -1,0 +1,234 @@
+@if(esCapacitor){
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center"> Innova Facturas </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button href="app/info">
+        <!-- <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon> -->
+        <!-- <ion-icon name="information-outline" slot="end" size="large"></ion-icon> -->
+        <span class="material-symbols-outlined" style="color: blue;">
+          info
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+
+  <ion-segment [(ngModel)]="segment" mode="ios">
+
+    <ion-segment-button value="qr">
+      <ion-label>Imagen QR</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="factura">
+      <ion-label>Imagen Factura</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+
+
+  <!--  Segmento leer un QR en android, ios y web  -->
+  @if (segment === 'qr') {
+  <div class="segment">
+    <div class="segment-content">
+
+      <img src="assets/images/scan-qr.webp" alt="">
+
+      <h6 class="scan-label">Selecciona una imagen con QR Valido para obtener el valor</h6>
+
+      @if (scanResult === '' ) {
+      <ion-row>
+        <ion-col size="12">
+          <ion-button (click)="readBarcodeFromImage()" class="submit" expand="block">
+            Subir QR
+            <ion-icon slot="end" name="scan-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      }
+
+      @if (scanResult) {
+      <ion-row>
+        <ion-col size="10">
+          <ion-button (click)="readBarcodeFromImage()" class="submit" expand="block">
+            Subir QR
+            <ion-icon slot="end" name="scan-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button (click)="clean()" class="submit" expand="block">
+            <ion-icon name="refresh-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      }
+
+      @if (scanResult) {
+      <ion-item class="result" lines="none">
+        <ion-label>
+          <p>Resultado del Escaneo</p>
+          <div>
+            {{ scanResult }}
+          </div>
+        </ion-label>
+        <ion-buttons slot="end">
+
+          <ion-button *ngIf="isUrl()" color="tertiary" (click)="openCapacitorSite()">
+            <ion-icon slot="icon-only" name="globe-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button color="tertiary" (click)="writeToClipboard()">
+            <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+      }
+
+
+
+    </div>
+  </div>
+  }
+
+
+
+
+  <!--  Segmento para crear un QR y para poder exportarlo en android, ios y web  -->
+
+  @if (segment === 'factura') {
+  <div class="segment">
+    <div class="segment-content">
+
+      <img src="assets/images/scan-qr.webp" alt="">
+
+      <h6 class="scan-label">Selecciona la imagen de la Factura para obtener los valores</h6>
+      @if (textDetections.length === 0) {
+
+      <ion-row>
+        <ion-col size="12">
+          <!-- <ion-button (click)="scanNow()" class="submit" expand="block">
+                Subir Factura
+                <ion-icon slot="end" name="image-outline"></ion-icon>
+              </ion-button> -->
+        </ion-col>
+      </ion-row>
+      }
+
+      @if (textDetections.length != 0) {
+      <ion-row>
+        <ion-col size="10">
+          <!-- <ion-button (click)="scanNow()" class="submit" expand="block">
+                Subir Factura
+                <ion-icon slot="end" name="image-outline"></ion-icon>
+              </ion-button> -->
+        </ion-col>
+        <ion-col size="2">
+          <ion-button (click)="clean()" class="submit" expand="block">
+            <ion-icon slot="" name="refresh-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      }
+
+
+
+
+      @for(item of textDetections; track $index) {
+      <ion-item>
+        <ion-label>
+          {{ item.text }}
+        </ion-label>
+      </ion-item>
+      }
+
+      @if(scaneoCompleto){
+      <ion-item>
+        <ion-input label="Ruc Emisor:" labelPlacement="floating" placeholder="Enter text"
+          value="{{rucEmisor}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Razón Social:" labelPlacement="floating" placeholder="Enter text"
+          value="{{razonSocialEmisor}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Timbrado Nro:" labelPlacement="floating" placeholder="Enter text"
+          value="{{timbradoNro}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Fecha Inicio Vigencia:" labelPlacement="floating" placeholder="Enter text"
+          value="{{fechaInicioVig}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Fecha Fin Vigencia:" labelPlacement="floating" placeholder="Enter text"
+          value="{{fechaFinVig}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Ruc Receptor:" labelPlacement="floating" placeholder="Enter text"
+          value="{{rucReceptor}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Razón Social Receptor:" labelPlacement="floating" placeholder="Enter text"
+          value="{{razonSocialReceptor}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Numero Factura:" labelPlacement="floating" placeholder="Enter text"
+          value="{{nroFactura}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Fecha de Emisión:" labelPlacement="floating" placeholder="Enter text"
+          value="{{fechaEmision}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Condición de Venta:" labelPlacement="floating" placeholder="Enter text"
+          value="{{condicionVenta}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Monto Total:" labelPlacement="floating" placeholder="Enter text"
+          value="{{montoTotal}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Iva 10%:" labelPlacement="floating" placeholder="Enter text"
+          value="{{montoIva10}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="IVA 5%:" labelPlacement="floating" placeholder="Enter text" value="{{montoIva5}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Excenta:" labelPlacement="floating" placeholder="Enter text"
+          value="{{montoExenta}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Total IVA:" labelPlacement="floating" placeholder="Enter text"
+          value="{{montoTotalIVA}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Tipo Factura:" labelPlacement="floating" placeholder="Enter text"
+          value="{{tipoFactura}}"></ion-input>
+      </ion-item>
+      }
+
+    </div>
+  </div>
+  }
+
+
+
+</ion-content>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-button color="tertiary" expand="block" href="app/home">
+      Ir al Inicio
+      <ion-icon slot="end" name="home" size="large"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+}
+
+@if (!esCapacitor) {
+<h1>Es un dispositivo WEB</h1>
+}
